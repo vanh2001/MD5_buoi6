@@ -1,0 +1,95 @@
+<div class="container">
+  <h1>Register User</h1>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3 row" >
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter your email..." formControlName="email">
+      <div id="emailHelp" class="form-text">Format for: abc@gmail.com</div>
+    </div>
+    <div *ngIf="!email.valid && email.touched">
+      <div [hidden]="!email.errors.required">
+        <p style="color: red">Email must be blank</p>
+      </div>
+      <div [hidden]="!email.errors.email">
+        <p style="color: red">Email must be contain 'abc@abc.com'</p>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Enter your password..." formControlName="password">
+      <div id="password2" class="form-text">Don't let blank, must be to 8 character</div>
+    </div>
+    <div *ngIf="!password.valid && password.touched">
+      <div [hidden]="!password.errors.required">
+        <p style="color: red">Password must be blank</p>
+      </div>
+      <div [hidden]="!password.errors.minlength">
+        <p style="color: red">Password must has length min is 6</p>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="passwordConfirm" class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" id="passwordConfirm" placeholder="Enter your password confirm..." formControlName="passwordConfirm" pattern="{{password.value}}">
+      <div id="passwordConfirm2" class="form-text">Don't let blank, must be to 8 character and like Password</div>
+    </div>
+    <div *ngIf="!passwordConfirm.valid && passwordConfirm.touched">
+      <div [hidden]="!passwordConfirm.errors.required">
+        <p style="color: red">Confirm Password must be blank</p>
+      </div>
+      <div [hidden]="!passwordConfirm.errors.minlength">
+        <p style="color: red">Confirm Password must has length min is 6</p>
+      </div>
+      <div [hidden]="!passwordConfirm.errors.pattern">
+        <p style="color: red">Confirm Password must same as Password</p>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="country" class="form-label">Country</label>
+      <select class="form-select" aria-label="Default select example" formControlName="country" id="country">
+        <option [selected]="true">Choose the country...</option>
+        <option [ngValue]="c.name" *ngFor="let c of countryList">{{c.name}}</option>
+      </select>
+    </div>
+    <div *ngIf="!country.valid && country.touched">
+      <div [hidden]="!country.errors.required">
+        <p style="color: red">Country must be blank</p>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="age" class="form-label">Age</label>
+      <input type="number" class="form-control" id="age" placeholder="Enter your age..." formControlName="age">
+      <div id="age2" class="form-text">Don't let blank, age must be > 18</div>
+    </div>
+    <div *ngIf="!age.valid && age.touched">
+      <div [hidden]="!age.errors.required">
+        <p style="color: red">Age must be blank</p>
+      </div>
+      <div [hidden]="!age.errors.min">
+        <p style="color: red">Age must be > 18</p>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="age" class="form-label">Gender</label>
+      <div class="form-check col-2">
+        <input class="form-check-input" type="radio" id="male" checked formControlName="gender" value="male">
+        <label class="form-check-label" for="male">
+          Male
+        </label>
+      </div>
+      <div class="form-check col-6">
+        <input class="form-check-input" type="radio" id="female" formControlName="gender" value="female">
+        <label class="form-check-label" for="female">
+          Female
+        </label>
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="text" class="form-control" id="phone" placeholder="Enter your phone number..." formControlName="phone">
+      <div id="phone2" class="form-text">Don't let blank, only to 10 character</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Submit</button>
+  </form>
+</div>
